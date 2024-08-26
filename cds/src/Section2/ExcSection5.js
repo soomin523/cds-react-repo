@@ -6,7 +6,9 @@ import Secfoot from "./Secfoot";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
 const ExcSection5 = () => {
+    const isLoggedIn = useSelector((state) => state.isLoggedIn)
     return (
         <div>
             <Header />
@@ -28,7 +30,7 @@ const ExcSection5 = () => {
                         </ul>
                     </div>
                     <div className="mainbox">
-                        <Exercise4 />
+                        {isLoggedIn ? <Exercise4 /> : <h2> 로그인 후 확인하실 수 있습니다.</h2>}
                     </div>
                 </div>
                 <hr className="section-divider" />
