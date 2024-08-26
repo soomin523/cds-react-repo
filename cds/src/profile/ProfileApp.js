@@ -17,6 +17,8 @@ import {
 import profileImage from './profilesample.png'; // 이미지 import
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function ProfileApp() {
   const [profile, setProfile] = useState(null);
@@ -65,6 +67,15 @@ function ProfileApp() {
     setIsEdit(editMode);
     setShowForm(true);
   };
+
+  const navigate = useNavigate();
+
+  const { isLoggedIn } = useSelector((state) => state);
+  const loginBefore = (editMode = false) => {
+    setIsEdit(editMode);
+    alert("로그인이 필요한 페이지입니다.");
+    navigate("/login");
+  }
 
   const handleCloseForm = () => {
     setShowForm(false);
@@ -154,7 +165,7 @@ function ProfileApp() {
               <Button
                 style={{ width: '100%', borderRadius: '8px', backgroundColor: '#90ACC7' }}
                 variant="contained"
-                onClick={() => handleShowForm(false)}
+                onClick={() => isLoggedIn ? handleShowForm(false) : loginBefore(false)}
               >
                 내 정보 입력
               </Button>
