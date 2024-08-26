@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 const CommuNew = (props) => {
 
-    //로그인 여부를 확인함
+    //로그인 된 id값을 가져옴
     const { isLoggedIn } = useSelector((state) => state);
 
     

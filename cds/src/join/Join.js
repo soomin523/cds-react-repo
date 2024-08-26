@@ -102,7 +102,7 @@ const Join = (props) => {
   };
 
   return (
-    <div style={{ width: "100%", height: '700px', backgroundColor:'#f4f4f4' }}>
+    <div style={{ width: "100%", height: '700px' }}>
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs" style={{ height: '100%', paddingTop: 30 }}>
           <CssBaseline />
@@ -110,6 +110,7 @@ const Join = (props) => {
             sx={{
               display: 'flex',
               flexDirection: 'column',
+              backgroundColor: 'white',
               padding: '16px',
             }}
           >
@@ -239,11 +240,11 @@ const Join = (props) => {
                   sx={{
                     mt: 3, mb: 2,
                     width: '100%',
-                    color: '#fff',
-                    backgroundColor: '#243040',
+                    color: 'black',
+                    backgroundColor: '#cdeeff',
                     '&:hover': {
-                      backgroundColor: '#243040',
-                      color: '#fff'
+                      backgroundColor: '#b2e0ff',
+                      color: 'gray'
                     }
                   }}
                   size="large"

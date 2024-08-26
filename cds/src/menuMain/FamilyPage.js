@@ -66,7 +66,7 @@ const ProductItem = ({ productName, calories, nutrients, productLink, imgSrc, to
             <div className="food-product-back-content">
               <p>{calories}</p>
               <p>{nutrients}</p>
-              <button className="food-recipe-button" onClick={() => toggleModal(familyImages[imgSrc])}>{buttonText}</button>
+              <button className="food-recipe-button" onClick={() => toggleModal(familyImages[imgSrc])}>레시피 확인하기</button>
               <a href={productLink}><button className="food-purchase-button">상품 구매하기</button></a>
             </div>
           </div> : <p className="food-product-back">로그인 후 확인 가능합니다.</p>
@@ -82,7 +82,7 @@ function FamilyPage() {
   const [currentImage, setCurrentImage] = useState(null);
 
   const toggleModal = (imgSrc) => {
-    setCurrentImage(imgSrc);
+    setCurrentImage(familyImages[imgSrc]);
     setIsModalOpen(!isModalOpen);
   };
 

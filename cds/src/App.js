@@ -23,7 +23,6 @@ function App() {
   const [joinUse, setJoinUse] = useState(true);
   const [joinSub, setJoinSub] = useState(false);
 
-  
   return (
     <AppContext>
       <Router>

@@ -79,9 +79,6 @@ const HeadHiddenNav = (props) => {
         setboardSelect("question");
         navigate("/board")
     }
-    const profileIn = () => {
-        navigate("/profile")
-    }
 
 
 
@@ -112,7 +109,7 @@ const HeadHiddenNav = (props) => {
                 <button onClick={cumu4In}>자유게시판</button>
             </div>
             <div>
-                <button onClick={profileIn}>건강 기록하기</button>
+                <button>건강 기록하기</button>
             </div>
         </nav>
     );

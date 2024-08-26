@@ -17,9 +17,6 @@ import {
 import profileImage from './profilesample.png'; // 이미지 import
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import TermsModal from '../footer/TermsModal';
 
 function ProfileApp() {
   const [profile, setProfile] = useState(null);
@@ -30,17 +27,6 @@ function ProfileApp() {
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() - 1);
   const [previousMonthWeight, setPreviousMonthWeight] = useState('');
   const [showImage, setShowImage] = useState(true);
-  const [showModal, setShowModal] = useState(false);
-    const [activeTab, setActiveTab] = useState('terms');
-
-    const handleShow = (tab) => {
-        setActiveTab(tab);
-        setShowModal(true);
-    };
-
-    const handleClose = () => setShowModal(false);
-
-
 
   const handleProfileSave = (profileData) => {
     const month = new Date().getMonth();
@@ -79,15 +65,6 @@ function ProfileApp() {
     setIsEdit(editMode);
     setShowForm(true);
   };
-
-  const navigate = useNavigate();
-
-  const { isLoggedIn } = useSelector((state) => state);
-  const loginBefore = (editMode = false) => {
-    setIsEdit(editMode);
-    alert("로그인이 필요한 페이지입니다.");
-    navigate("/login");
-  }
 
   const handleCloseForm = () => {
     setShowForm(false);
@@ -177,7 +154,7 @@ function ProfileApp() {
               <Button
                 style={{ width: '100%', borderRadius: '8px', backgroundColor: '#90ACC7' }}
                 variant="contained"
-                onClick={() => isLoggedIn ? handleShowForm(false) : loginBefore(false)}
+                onClick={() => handleShowForm(false)}
               >
                 내 정보 입력
               </Button>
@@ -193,8 +170,7 @@ function ProfileApp() {
           />
         )}
       </Container>
-      <Footer handleShow={handleShow} />
-      <TermsModal show={showModal} handleClose={handleClose} activeTab={activeTab} />
+      <Footer />
     </div>
   );
 }
