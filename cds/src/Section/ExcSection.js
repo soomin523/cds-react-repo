@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import './excSection.css'
 import Challenge from "./Challenge";
 import Challengeban from "./Challengeban";
@@ -8,9 +8,21 @@ import Footer from "../footer/Footer";
 import Header from "../header/Header";
 import { Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import TermsModal from '../footer/TermsModal';
 
 
 const ExcSection = () => {
+
+    const [showModal, setShowModal] = useState(false);
+    const [activeTab, setActiveTab] = useState('terms');
+
+    const handleShow = (tab) => {
+        setActiveTab(tab);
+        setShowModal(true);
+    };
+
+    const handleClose = () => setShowModal(false);
+
     const { isLoggedIn } = useSelector((state) => state);
     console.log(isLoggedIn);
     return (
@@ -48,7 +60,8 @@ const ExcSection = () => {
                     <StrechingFade />
                 </div>
             </div>
-            <Footer />
+            <Footer handleShow={handleShow} />
+      <TermsModal show={showModal} handleClose={handleClose} activeTab={activeTab} />
         </div>
     );
 }

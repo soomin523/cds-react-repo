@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import DietPage from './DietPage';
 import FamilyPage from './FamilyPage';
 import NutritionPage from './NutritionPage';
@@ -6,9 +6,20 @@ import './disign.css';
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import { useSelect } from "../AppContext";
+import TermsModal from "../footer/TermsModal";
 
 const MenuPage = () => {
     const { menuSelect, setmenuSelect } = useSelect();
+
+    const [showModal, setShowModal] = useState(false);
+    const [activeTab, setActiveTab] = useState('terms');
+
+    const handleShow = (tab) => {
+        setActiveTab(tab);
+        setShowModal(true);
+    };
+
+    const handleClose = () => setShowModal(false);
 
     const renderPage = () => {
         switch (menuSelect) {
@@ -60,7 +71,8 @@ const MenuPage = () => {
                     <button onClick={() => setmenuSelect('nutrition')}>3</button>
                 </p>
             </div>
-            <Footer />
+            <Footer handleShow={handleShow} />
+            <TermsModal show={showModal} handleClose={handleClose} activeTab={activeTab} />
         </div>
     );
 

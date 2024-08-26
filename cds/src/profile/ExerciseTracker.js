@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import exerciseImage from './exercise.png'; // 운동 이미지 파일
+import { useNavigate } from 'react-router-dom';
 
 const ExerciseTracker = () => {
-  const [challengeStatus, setChallengeStatus] = useState('미달성'); // 챌린지 상태 기본값
 
-  // 챌린지 상태에 따른 배경 색상 및 텍스트 설정
-  const statusColor = challengeStatus === '완료' ? '#D4EDDA' : '#F8D7DA';
-  const statusText = challengeStatus === '완료' ? '달성!' : '미달성';
+  const navigate = useNavigate();
 
   // 페이지 이동 함수
   const handleNavigate = () => {
-    window.location.href = '/exercise-challenge'; // 이동할 URL (실제 URL로 교체 필요)
+    navigate("/exercise"); // 이동할 URL (실제 URL로 교체 필요)
   };
 
   return (
@@ -51,10 +49,8 @@ const ExerciseTracker = () => {
             top: '-15px', // 이미지 상단에 위치
             left: '50%',
             transform: 'translateX(-50%)',
-            backgroundColor: statusColor,
             padding: '5px 10px',
             borderRadius: '12px',
-            color: challengeStatus === '완료' ? '#155724' : '#7C7C7C',
             fontWeight: 'bold',
             textAlign: 'center',
             fontSize: '12px',
@@ -64,7 +60,6 @@ const ExerciseTracker = () => {
             zIndex: 1,
           }}
         >
-          {statusText}
         </div>
       </div>
 
