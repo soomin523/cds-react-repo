@@ -19,6 +19,7 @@ import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import TermsModal from '../footer/TermsModal';
 
 function ProfileApp() {
   const [profile, setProfile] = useState(null);
@@ -29,6 +30,17 @@ function ProfileApp() {
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() - 1);
   const [previousMonthWeight, setPreviousMonthWeight] = useState('');
   const [showImage, setShowImage] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+    const [activeTab, setActiveTab] = useState('terms');
+
+    const handleShow = (tab) => {
+        setActiveTab(tab);
+        setShowModal(true);
+    };
+
+    const handleClose = () => setShowModal(false);
+
+
 
   const handleProfileSave = (profileData) => {
     const month = new Date().getMonth();
@@ -181,7 +193,8 @@ function ProfileApp() {
           />
         )}
       </Container>
-      <Footer />
+      <Footer handleShow={handleShow} />
+      <TermsModal show={showModal} handleClose={handleClose} activeTab={activeTab} />
     </div>
   );
 }

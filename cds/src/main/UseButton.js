@@ -1,12 +1,19 @@
 import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const UseButton = () => {
+
+  const { isLoggedIn } = useSelector((state) => state);
+
   const navigate = useNavigate();
   // 버튼 클릭 시 실행할 함수
+
   const handleClick = () => {
     // 여기에 버튼 클릭 시 수행할 작업을 추가할 수 있습니다
+    isLoggedIn ? 
+    navigate('/profile') :
     navigate('/join')
   };
 

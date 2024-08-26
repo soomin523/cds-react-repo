@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Challengeban from "./Challengeban";
 import Exercise1 from "./Exercise1";
 import Secfoot from "./Secfoot";
@@ -6,8 +6,20 @@ import '../Section/excSection.css';
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import { Link } from 'react-router-dom';
+import TermsModal from "../footer/TermsModal";
 
 const ExcSection2 = () => {
+    const [showModal, setShowModal] = useState(false);
+    const [activeTab, setActiveTab] = useState('terms');
+
+    const handleShow = (tab) => {
+        setActiveTab(tab);
+        setShowModal(true);
+    };
+
+    const handleClose = () => setShowModal(false);
+
+
     return (
         <div>
             <Header />
@@ -35,7 +47,8 @@ const ExcSection2 = () => {
                 <hr className="section-divider" />
                 <Secfoot />
             </div>
-            <Footer />
+            <Footer handleShow={handleShow} />
+      <TermsModal show={showModal} handleClose={handleClose} activeTab={activeTab} />
         </div>
     );
 }
