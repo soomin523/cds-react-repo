@@ -6,6 +6,7 @@ const CommuNew = (props) => {
     //로그인 여부를 확인함
     const { isLoggedIn } = useSelector((state) => state);
 
+    
     //새 글 입력창 띄우기
     const newWriting = props.newWriting;
     const newcontent = () => {
