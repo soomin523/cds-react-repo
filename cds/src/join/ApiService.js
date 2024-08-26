@@ -41,3 +41,7 @@ export function deleteFit(uIdx) {
 export function getFit(uIdx) {
     return call(`/fitroot/${uIdx}/getFitIdx`, "GET", null)
 }
+
+export function weightin(FitDTO) {
+    return call(`/weightin`, "PUT", FitDTO)
+}
