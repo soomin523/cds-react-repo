@@ -6,9 +6,19 @@ import Secfoot from "./Secfoot";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import { Link } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import TermsModal from "../footer/TermsModal";
 const ExcSection5 = () => {
-    const isLoggedIn = useSelector((state) => state.isLoggedIn)
+
+    const [showModal, setShowModal] = useState(false);
+    const [activeTab, setActiveTab] = useState('terms');
+
+    const handleShow = (tab) => {
+        setActiveTab(tab);
+        setShowModal(true);
+    };
+
+    const handleClose = () => setShowModal(false);
+
     return (
         <div>
             <Header />
@@ -30,13 +40,14 @@ const ExcSection5 = () => {
                         </ul>
                     </div>
                     <div className="mainbox">
-                        {isLoggedIn ? <Exercise4 /> : <h2> 로그인 후 확인하실 수 있습니다.</h2>}
+                        <Exercise4 />
                     </div>
                 </div>
                 <hr className="section-divider" />
                 <Secfoot />
             </div>
-            <Footer />
+            <Footer handleShow={handleShow} />
+      <TermsModal show={showModal} handleClose={handleClose} activeTab={activeTab} />
         </div>
     );
 }
