@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js';
-import waterImage from './water.png'; // 물 이미지 파일
-import checkImage from './check.png'; // 체크 이미지 파일
+import waterImage from './img/water.png'; // 물 이미지 파일
+import checkImage from './img/check.png'; // 체크 이미지 파일
 import IconButton from '@mui/material/IconButton'; // IconButton 추가
 import ControlPointIcon from '@mui/icons-material/ControlPoint'; // ControlPoint 아이콘 추가
 
@@ -11,9 +11,34 @@ ChartJS.register(Title, Tooltip, Legend, ArcElement);
 const WaterTracker = () => {
   const [consumed, setConsumed] = useState(0); // 초기 섭취량 설정
   const goal = 2000; // 목표량 설정
+  const [userId, setUserId] = useState(1); // 예시로 사용자 ID를 1로 설정
 
-  const handleAddWater = () => {
-    setConsumed(prevConsumed => prevConsumed + 250); // 목표를 초과해도 계속 증가하도록 설정
+  const handleAddWater = async () => {
+    const newConsumed = consumed + 250;
+    setConsumed(newConsumed);
+
+    try {
+      // 서버에 데이터 전송
+      const response = await fetch('/api/activity/record', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          uIdx: userId,
+          waterConsumed: newConsumed,
+          recordDate: new Date().toISOString().split('T')[0], // 현재 날짜를 YYYY-MM-DD 형식으로 설정
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      alert('수분 섭취량이 저장되었습니다.');
+    } catch (error) {
+      console.error('수분 섭취량 저장에 실패했습니다.', error);
+    }
   };
 
   const data = {
@@ -94,7 +119,6 @@ const WaterTracker = () => {
             borderRadius: '8px',
             padding: '0px 15px',
             whiteSpace: 'nowrap', // 텍스트가 한 줄로 표시되도록 설정
-            
           }}>
             {consumed}ml/{goal}ml
           </div>

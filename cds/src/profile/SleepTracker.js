@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, MenuItem, Select, FormControl, Grid, Typography, IconButton } from '@mui/material';
-import checkOff from './checkoff.png'; // 체크 오프 이미지
-import checkOn from './checkon.png'; // 체크 온 이미지
-import sleepImage from './sleep.png'; // 수면 이미지 파일
+import checkOff from './img/checkoff.png'; // 체크 오프 이미지
+import checkOn from './img/checkon.png'; // 체크 온 이미지
+import sleepImage from './img/sleep.png'; // 수면 이미지 파일
 
 const SleepTracker = () => {
   const [sleepTime, setSleepTime] = useState(''); // 설정된 수면시간
@@ -12,6 +12,7 @@ const SleepTracker = () => {
   const [endHour, setEndHour] = useState(7); // 종료 시간
   const [endMinute, setEndMinute] = useState(0); // 종료 분
   const [isChecked, setIsChecked] = useState(false); // 체크 상태
+  const [userId, setUserId] = useState(1); // 예시로 사용자 ID를 1로 설정
 
   const handleClickOpen = () => {
     setOpenDialog(true);
@@ -21,13 +22,43 @@ const SleepTracker = () => {
     setOpenDialog(false);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const formattedStartHour = String(startHour).padStart(2, '0');
     const formattedStartMinute = String(startMinute).padStart(2, '0');
     const formattedEndHour = String(endHour).padStart(2, '0');
     const formattedEndMinute = String(endMinute).padStart(2, '0');
     const formattedSleepTime = `${formattedStartHour}:${formattedStartMinute} ~ ${formattedEndHour}:${formattedEndMinute}`;
     setSleepTime(formattedSleepTime);
+
+    const sleepStart = `${formattedStartHour}:${formattedStartMinute}:00`;
+    const sleepEnd = `${formattedEndHour}:${formattedEndMinute}:00`;
+    const sleepChecked = isChecked;
+
+    try {
+      // 서버에 데이터 전송
+      const response = await fetch('/api/activity/record', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          uIdx: userId,
+          sleepStart: sleepStart,
+          sleepEnd: sleepEnd,
+          sleepChecked: sleepChecked,
+          recordDate: new Date().toISOString().split('T')[0], // 현재 날짜를 YYYY-MM-DD 형식으로 설정
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      alert('수면 시간이 저장되었습니다.');
+    } catch (error) {
+      console.error('수면 시간 저장에 실패했습니다.', error);
+    }
+
     setOpenDialog(false);
   };
 
@@ -73,26 +104,26 @@ const SleepTracker = () => {
           {sleepTime || '수면 시간 계획하기'}
         </div>
         <div style={{ position: 'absolute', right: '-10px', top: '-5px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-  <IconButton onClick={handleCheckClick} style={{ padding: '0', position: 'relative' }}>
-    <img
-      src={isChecked ? checkOn : checkOff} // 체크 상태에 따라 이미지 변경
-      alt="check"
-      style={{ width: '40px', height: '40px' }} // 아이콘 크기 조절
-    />
-    <span style={{
-      position: 'absolute',
-      top: '70%', // 이미지 바로 아래에 위치
-      left: '50%',
-      transform: 'translateX(-50%)',
-      fontSize: '10px', // 텍스트 크기 조절
-      color: '#000',
-      pointerEvents: 'none', // 텍스트 클릭 이벤트 방지
-      marginTop: '5px' // 이미지와 텍스트 사이의 간격 조절
-    }}>
-      check!
-    </span>
-  </IconButton>
-</div>
+          <IconButton onClick={handleCheckClick} style={{ padding: '0', position: 'relative' }}>
+            <img
+              src={isChecked ? checkOn : checkOff} // 체크 상태에 따라 이미지 변경
+              alt="check"
+              style={{ width: '40px', height: '40px' }} // 아이콘 크기 조절
+            />
+            <span style={{
+              position: 'absolute',
+              top: '70%', // 이미지 바로 아래에 위치
+              left: '50%',
+              transform: 'translateX(-50%)',
+              fontSize: '10px', // 텍스트 크기 조절
+              color: '#7C7C7C',
+              pointerEvents: 'none', // 텍스트 클릭 이벤트 방지
+              marginTop: '5px' // 이미지와 텍스트 사이의 간격 조절
+            }}>
+              check!
+            </span>
+          </IconButton>
+        </div>
       </div>
 
       {/* 수면 시간 설정 팝업창 */}
@@ -110,7 +141,7 @@ const SleepTracker = () => {
               <FormControl>
                 <Select
                   value={startHour}
-                  onChange={(e) => setStartHour(e.target.value)}
+                  onChange={(e) => setStartHour(Number(e.target.value))}
                   sx={{ minWidth: 70, height: 30 }}
                 >
                   {hours.map((hour) => (
@@ -125,7 +156,7 @@ const SleepTracker = () => {
               <FormControl>
                 <Select
                   value={startMinute}
-                  onChange={(e) => setStartMinute(e.target.value)}
+                  onChange={(e) => setStartMinute(Number(e.target.value))}
                   sx={{ minWidth: 70, height: 30 }}
                 >
                   {minutes.map((minute) => (
@@ -143,7 +174,7 @@ const SleepTracker = () => {
               <FormControl>
                 <Select
                   value={endHour}
-                  onChange={(e) => setEndHour(e.target.value)}
+                  onChange={(e) => setEndHour(Number(e.target.value))}
                   sx={{ minWidth: 70, height: 30 }}
                 >
                   {hours.map((hour) => (
@@ -158,7 +189,7 @@ const SleepTracker = () => {
               <FormControl>
                 <Select
                   value={endMinute}
-                  onChange={(e) => setEndMinute(e.target.value)}
+                  onChange={(e) => setEndMinute(Number(e.target.value))}
                   sx={{ minWidth: 70, height: 30 }}
                 >
                   {minutes.map((minute) => (

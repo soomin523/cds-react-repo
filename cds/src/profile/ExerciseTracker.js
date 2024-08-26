@@ -1,24 +1,22 @@
-import React, { useState } from 'react';
-import exerciseImage from './exercise.png'; // 운동 이미지 파일
+import React from 'react';
+import exerciseImage from './img/exercise.png'; // 운동 이미지 파일
 import { useNavigate } from 'react-router-dom';
 
 const ExerciseTracker = () => {
-
   const navigate = useNavigate();
-
   // 페이지 이동 함수
   const handleNavigate = () => {
-    navigate("/exercise"); // 이동할 URL (실제 URL로 교체 필요)
+    navigate('/exercise'); // 이동할 URL (실제 URL로 교체 필요)
   };
 
   return (
-    <div style={{ 
-      display: 'flex', 
-      flexDirection: 'column', 
-      alignItems: 'center', 
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
       height: '180px',
-      backgroundColor: 'white', 
-      borderRadius: '20px', 
+      backgroundColor: 'white',
+      borderRadius: '20px',
       padding: 'px',
       boxSizing: 'border-box',
       marginTop: '20px',
@@ -29,7 +27,7 @@ const ExerciseTracker = () => {
         position: 'relative',
         width: '150px',
         height: '150px',
-     
+
       }}>
         <img
           src={exerciseImage}
@@ -39,7 +37,7 @@ const ExerciseTracker = () => {
             height: '100%',
             borderRadius: '20px',
             objectFit: 'cover',
-            
+
           }}
         />
         {/* 달성 상태 텍스트 */}
@@ -68,7 +66,7 @@ const ExerciseTracker = () => {
         onClick={handleNavigate}
         style={{
           position: 'absolute',
-          bottom: '-3px', 
+          bottom: '-3px',
           fontSize: '14px',
           textAlign: 'center',
           color: '#7C7C7C',
@@ -76,7 +74,7 @@ const ExerciseTracker = () => {
           borderRadius: '8px',
           padding: '5px 10px',
           whiteSpace: 'nowrap',
-        
+
           textOverflow: 'ellipsis',
           cursor: 'pointer',
           width: '100%', // 부모 요소에 맞추기 위해 너비를 100%로 설정
