@@ -16,7 +16,10 @@ const HeadNav = (props) => {
 
 
     const bannerOnclick = () => {
-        navigate("/")
+
+        setTimeout(() => {
+            navigate("/")
+        }, 150);
     }
 
     return (
