@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import './excSection.css'
-import { Card, Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap";
-import diet from './IMG/diet.png'
-import str from './IMG/strength.png'
-import bac from './IMG/bac.png'
+import { Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap";
+import diet from './IMG/diet.png';
+import str from './IMG/strength.png';
+import bac from './IMG/bac.png';
 
 const Challenge = () => {
-    const [TabState, setTabstate] = useState('diet')
+    const [TabState, setTabstate] = useState('diet');
 
     const toggle = (tabnum) => {
-        if (TabState !== tabnum) setTabstate(tabnum)
-    }
+        if (TabState !== tabnum) setTabstate(tabnum);
+    };
 
     return (
         <div>
@@ -27,40 +27,31 @@ const Challenge = () => {
             </Nav>
             <div className="chalbox">
                 <TabContent activeTab={TabState}>
-                    <TabPane tabId="diet" className="schedule">
-                    <Card style={{
-                            backgroundImage: `url(${diet})`,
-                            backgroundSize: 'cover', // 이미지를 카드 전체에 맞추기
-                            backgroundPosition: 'center', // 이미지 중앙 정렬
-                            backgroundRepeat: 'no-repeat', // 이미지 반복 방지
-                            height: '600px',
-                            width: '600px'
-                            }}/>
+                    <TabPane tabId="diet">
+                        <img src={diet} alt="Diet" style={{
+                            width: '100%',
+                            height: 'auto',
+                            borderRadius: '8px'
+                        }} />
                     </TabPane>
-                    <TabPane tabId="strangth" className="schedule">
-                    <Card style={{
-                            backgroundImage: `url(${str})`,
-                            backgroundSize: 'cover', // 이미지를 카드 전체에 맞추기
-                            backgroundPosition: 'center', // 이미지 중앙 정렬
-                            backgroundRepeat: 'no-repeat', // 이미지 반복 방지
-                            height: '600px',
-                            width: '600px'
-                            }}/>
+                    <TabPane tabId="strangth" >
+                        <img src={str} alt="Strength" style={{
+                            width: '100%',
+                            height: 'auto',
+                            borderRadius: '8px'
+                        }} />
                     </TabPane>
-                    <TabPane tabId="bodyshape" className="schedule">
-                    <Card style={{
-                            backgroundImage: `url(${bac})`,
-                            backgroundSize: 'cover', // 이미지를 카드 전체에 맞추기
-                            backgroundPosition: 'center', // 이미지 중앙 정렬
-                            backgroundRepeat: 'no-repeat', // 이미지 반복 방지
-                            height: '600px',
-                            width: '600px'
-                            }}/>
+                    <TabPane tabId="bodyshape">
+                        <img src={bac} alt="Body Shape" style={{
+                            width: '100%',
+                            height: 'auto',
+                            borderRadius: '8px'
+                        }} />
                     </TabPane>
                 </TabContent>
             </div>
-        </div >
-    )
+        </div>
+    );
 }
 
 export default Challenge;

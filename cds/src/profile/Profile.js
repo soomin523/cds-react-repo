@@ -8,7 +8,7 @@ import SleepTracker from './SleepTracker';
 import ExerciseTracker from './ExerciseTracker';
 import { useSelector } from 'react-redux';
 import { getFit } from '../join/ApiService';
-import back1 from './img/profilesample.png'
+import back1 from './img/profilesample.webp';
 import { useNavigate } from 'react-router-dom';
 
 function Profile({ onEdit }) {
