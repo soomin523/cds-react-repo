@@ -8,13 +8,15 @@ import SleepTracker from './SleepTracker';
 import ExerciseTracker from './ExerciseTracker';
 import { useSelector } from 'react-redux';
 import { getFit } from '../join/ApiService';
+import back1 from './img/profilesample.png'
+import { useNavigate } from 'react-router-dom';
 
 function Profile({ onEdit }) {
   const [profile, setProfile] = useState(null);
   const [weightChangeMessage, setWeightChangeMessage] = useState('');
   const [goalWeightMessage, setGoalWeightMessage] = useState('');
   const { uIdx } = useSelector((state) => state);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
@@ -36,6 +38,10 @@ function Profile({ onEdit }) {
       computeMessages(profile);
     }
   }, [profile]);
+
+  const loginevent=()=>(
+    navigate('/login')
+  );
 
   const computeMessages = (profile) => {
     const weights = [
@@ -66,7 +72,29 @@ function Profile({ onEdit }) {
   };
 
   if (!profile) {
-    return <div>Loading...</div>;
+    return <Card style={{width:'100%', height:'100%',
+              backgroundImage:`url(${back1})`,backgroundSize: 'cover', 
+              display:'flex', justifyContent:'center', alignItems:'center'}}>
+      <Button
+      onClick={loginevent}
+      variant="contained"
+      sx={{
+        backgroundColor: '#00BFFF', // 하늘색 배경
+        color: '#FFFFFF', // 흰색 텍스트
+        '&:hover': {
+          backgroundColor: '#1E90FF', // 버튼 호버 시 더 진한 색상
+        },
+        padding: '12px 24px',
+        fontSize: '16px',
+        fontWeight: 'bold', // 글씨 두껍게 설정
+        borderRadius: '8px',
+        textTransform: 'none',
+        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // 미세한 그림자 추가
+      }}
+    >
+      로그인 후 이용 가능한 페이지입니다.
+    </Button>
+    </Card>
   }
 
   const weights = [

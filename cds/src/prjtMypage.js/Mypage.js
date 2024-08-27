@@ -181,7 +181,7 @@ function Mypage() {
                 </Grid>
 
                 {/* 회원정보 변경 버튼 */}
-                <Box sx={{ width: '100%', maxWidth: 360, textAlign: 'center', mt: 4 }}>
+                <Box sx={{ width: '100%', maxWidth: 328, textAlign: 'center', mt: 4 }}>
                     <Button
                         type="submit"
                         variant="contained"

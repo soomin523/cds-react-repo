@@ -45,3 +45,7 @@ export function getFit(uIdx) {
 export function weightin(FitDTO) {
     return call(`/weightin`, "PUT", FitDTO)
 }
+
+export function checkid(id) {
+    return call(`/fitroot/${id}/checkid`, "GET", null)
+}
