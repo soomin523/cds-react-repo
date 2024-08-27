@@ -5,9 +5,11 @@ import Exercise2 from "./Exercise2";
 import Secfoot from "./Secfoot";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import TermsModal from "../footer/TermsModal";
 import { useSelector } from "react-redux";
+import { Box, Typography } from "@mui/material";
+import { Button } from "reactstrap";
 const ExcSection3 = () => {
 
     const [showModal, setShowModal] = useState(false);
@@ -17,8 +19,39 @@ const ExcSection3 = () => {
         setActiveTab(tab);
         setShowModal(true);
     };
-
+    function handleLoginToggle() {
+        navigate('/login');
+    }
     const handleClose = () => setShowModal(false);
+
+    const navigate =useNavigate();
+    const LoginPrompt = () => (
+        <Box textAlign="center">
+          <Typography variant="h5" gutterBottom>
+            로그인 후 확인하실 수 있습니다
+          </Typography>
+          <Button
+            onClick={handleLoginToggle}
+            variant="contained"
+            sx={{
+              backgroundColor: '#00BFFF' , // 버튼 배경색
+              color: '#FFFFFF', // 버튼 텍스트 색
+              '&:hover': {
+                backgroundColor: '#1E90FF', // 버튼 호버 시 색상
+              },
+              padding: '12px 24px',
+              fontSize: '16px',
+              fontWeight: 'bold', // 글씨 두껍게
+              borderRadius: '8px',
+              textTransform: 'none',
+              boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // 미세한 그림자 추가
+              marginTop: '20px' // 텍스트와 버튼 사이의 여백
+            }}
+          >
+            로그인하기
+          </Button>
+        </Box>
+    );
 
     return (
         <div>
@@ -41,7 +74,7 @@ const ExcSection3 = () => {
                         </ul>
                     </div>
                     <div className="mainbox">
-                        {isLoggedIn ? <Exercise2 /> : <h2>로그인 후 확인하실 수 있습니다</h2>}
+                    {isLoggedIn ? <Exercise2 /> : <LoginPrompt/>}
                     </div>
                 </div>
                 <hr className="section-divider" />

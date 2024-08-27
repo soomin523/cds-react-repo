@@ -1,4 +1,7 @@
 //Join_eff<- 유효성이 영어로 effectiveness
+
+import { checkid } from "./ApiService";
+
 // Join_eff.js
 export const validateJoin = (data) => {
     let errors = {};
@@ -22,7 +25,6 @@ export const validateJoin = (data) => {
     if (!data.id || !/\S+@\S+\.\S+/.test(data.id)) {
         errors.id = "유효한 이메일을 입력해 주세요.";
     }
-
     // 비밀번호 유효성 검사
     if (!data.pw || data.pw.length < 8 || !/[A-Z]/.test(data.pw) || !/[a-z]/.test(data.pw) || !/[0-9]/.test(data.pw) || !/[\W_]/.test(data.pw)) {
         errors.pw = "비밀번호는 최소 8자 이상, 대소문자, 숫자 및 특수문자를 포함해야 합니다.";
@@ -37,6 +39,8 @@ export const validateJoin = (data) => {
     if (!data.agree) {
         errors.agree = "회원가입 약관에 동의해 주세요.";
     }
+
+
 
     return errors;
 };

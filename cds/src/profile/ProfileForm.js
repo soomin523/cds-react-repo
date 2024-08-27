@@ -23,7 +23,7 @@ function ProfileForm({ onClose }) {
     december: '',
     finweight: ''
   });
-  const [selectedMonth, setSelectedMonth] = useState('january'); // 기본 월을 1월로 설정
+  const [selectedMonth, setSelectedMonth] = useState('august'); // 기본 월을 1월로 설정
 
   useEffect(() => {
     const fetchProfileData = async () => {

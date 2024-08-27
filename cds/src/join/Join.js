@@ -20,7 +20,7 @@ import {
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { validateJoin } from './Join_eff'; // 유효성 검사 함수 임포트
 import { useNavigate } from 'react-router-dom'; // React Router v6
-import { loginup } from './ApiService';
+import { checkid, loginup } from './ApiService';
 
 const Join = (props) => {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const Join = (props) => {
   });
   const [errors, setErrors] = useState({});
   const [openDialog, setOpenDialog] = useState(false); // 다이얼로그 상태
-
+  const [idError, setIdError] = useState('');
   // 동의 체크
   const handleAgree = (event) => {
     const checked = event.target.checked;
@@ -64,7 +64,7 @@ const Join = (props) => {
   };
 
   // 폼 제출 핸들러
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // 유효성 검사 실행
@@ -81,6 +81,13 @@ const Join = (props) => {
     const pw = data.get("pw");
     const birthday = data.get("birthday");
     const tel = data.get("tel");
+
+    const isDuplicate =await checkid(id)
+    if (isDuplicate === 1) {
+      alert('동일한 아이디가 있습니다.');
+      return;
+    }
+   
     loginup({ name: name, pw: pw, id: id, birthday: birthday, tel: tel })
 
       .then(() => {
@@ -90,7 +97,8 @@ const Join = (props) => {
       })
       .catch((error) => {
         console.error("회원가입 실패:", error);
-      });
+      })
+  
   };
 
   const setJoinSub = props.setJoinSub;
@@ -101,8 +109,12 @@ const Join = (props) => {
 
   };
 
+  const Homeevent = () =>{
+    navigate('/')
+  }
+
   return (
-    <div style={{ width: "100%", height: '700px', backgroundColor:'#f4f4f4' }}>
+    <div style={{ width: "100%", height: '700px', backgroundColor:'#f4f4f4' }}> 
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs" style={{ height: '100%', paddingTop: 30 }}>
           <CssBaseline />
@@ -114,6 +126,13 @@ const Join = (props) => {
             }}
           >
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <img onClick={Homeevent}
+                                      src={`${process.env.PUBLIC_URL}/headerlogo.webp`}
+                                      alt="My Image"
+                                      style={{marginLeft:'35px', width: '300px', height: 'auto', cursor: 'pointer' }
+      
+                                      }
+                                  />
               <FormControl component="fieldset" variant="standard">
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
