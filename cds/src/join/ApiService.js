@@ -49,3 +49,10 @@ export function weightin(FitDTO) {
 export function checkid(id) {
     return call(`/fitroot/${id}/checkid`, "GET", null)
 }
+export function waterin(FitDTO) {
+    return call(`/waterin`, "PUT", FitDTO)
+}
+
+export function sleep(FitDTO) {
+    return call(`/sleep`, "PUT", FitDTO)
+}
