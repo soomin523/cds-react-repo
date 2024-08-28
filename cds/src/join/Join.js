@@ -92,6 +92,7 @@ const Join = (props) => {
 
       .then(() => {
         console.log("회원가입 성공"); // 로그 추가
+        alert("회원가입이 완료되었습니다.");
         setOpenDialog(true); // 다이얼로그 열기
         navigate('/login')
       })

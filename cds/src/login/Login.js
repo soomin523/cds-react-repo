@@ -25,7 +25,7 @@ function Login() {
             .then((response) => {
                 if (response.result === "OK") {
                     // 로그인 성공시
-                    alert("성공");
+                    alert("로그인이 완료되었습니다.");
                     dispatch(setIsLoggedIn(true));
                     //로그인 후 응답내용 중 uIdx, userId를 리덕스의 스토어에 저장함
                     dispatch(setUidx(response.uIdx));
@@ -34,7 +34,7 @@ function Login() {
                     console.log(response.name);
                     navigate('/profile');
                 } else {
-                    alert("실패");
+                    alert("등록되지 않은 아이디거나, 틀린 비밀번호입니다.");
                 }
             })
             .catch((error) => {
