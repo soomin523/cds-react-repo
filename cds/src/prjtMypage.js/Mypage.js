@@ -14,17 +14,49 @@ import {
 import { Edit, Home } from '@mui/icons-material';
 import { deleteFit, getFit, update } from '../join/ApiService';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { validateJoin } from '../join/Join_eff';
+
+
+
+// 전화번호 유효성 검사 함수
+function validatePhoneNumber(phoneNumber) {
+    if (!phoneNumber || phoneNumber.length !== 11 || isNaN(phoneNumber)) {
+        return "유효한 핸드폰 번호를 입력해 주세요.";
+    }
+    return null;
+}
+
+// 비밀번호 유효성 검사 함수
+function validatePassword(password) {
+    if (!password || password.length < 8 || !/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/[0-9]/.test(password) || !/[\W_]/.test(password)) {
+        return "비밀번호는 최소 8자 이상, 대소문자, 숫자 및 특수문자를 포함해야 합니다.";
+    }
+    return null;
+}
+
+// 생년월일 유효성 검사 함수
+function isValidDate(dateStr) {
+    if (!/^\d{8}$/.test(dateStr)) return false;
+
+    const year = parseInt(dateStr.slice(0, 4), 10);
+    const month = parseInt(dateStr.slice(4, 6), 10);
+    const day = parseInt(dateStr.slice(6, 8), 10);
+
+    const date = new Date(year, month - 1, day);
+    return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
+}
+
 function Mypage() {
     const [fitDTO, setFitDTO] = useState({});
+    const [errors, setErrors] = useState({});
     const navigate = useNavigate();
-    const dispatch = useDispatch;
-    
+    const uIdx = useSelector((state) => state.uIdx);
+
     // 회원정보 불러오기
-    const uIdx = useSelector((state) => state.uIdx); 
     useEffect(() => {
         getFit(uIdx).then((resDTO) => setFitDTO(resDTO));
-    }, []);
+    }, [uIdx]);
 
     const onPwChange = (e) => setFitDTO({ ...fitDTO, pw: e.target.value });
     const onBirthdayChange = (e) => setFitDTO({ ...fitDTO, birthday: e.target.value });
@@ -33,42 +65,60 @@ function Mypage() {
     // 회원정보 변경 submit 이벤트 처리
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = new FormData(e.target);
+
         const newDTO = {
             uIdx: uIdx,
-            name: data.get("name"),
-            pw: data.get("pw"),
-            birthday: data.get("birthday"),
-            tel: data.get("tel"),
+            name: fitDTO.name,
+            pw: fitDTO.pw,
+            birthday: fitDTO.birthday,
+            tel: fitDTO.tel,
         };
 
+        // 데이터 검증
+        const newErrors = {};
+
+        if (!newDTO.birthday || newDTO.birthday.length !== 8 || isNaN(newDTO.birthday) || !isValidDate(newDTO.birthday)) {
+            newErrors.birthday = "유효한 생년월일을 입력해 주세요.";
+        }
+
+        const passwordError = validatePassword(newDTO.pw);
+        if (passwordError) {
+            newErrors.pw = passwordError;
+        }
+
+        const phoneNumberError = validatePhoneNumber(newDTO.tel);
+        if (phoneNumberError) {
+            newErrors.tel = phoneNumberError;
+        }
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
         update(newDTO).then((response) => {
-            console.log(newDTO);
-            console.log(response);
             if (response.result === "OK") {
-                alert("회원정보변경성공");
+                alert("회원정보 변경 성공");
+                gomainpage();
             } else {
-                alert("회원정보변경실패");
+                alert("회원정보 변경 실패");
             }
         });
     };
 
     const onDelete = () => {
-        deleteFit(uIdx).then(
-            (response) => {
-                console.log(response);
-                if (response.result === "OK") {
-                    alert("회원정보가 삭제되었습니다.")
-                    onLogout();
-                } else {
-                    alert("삭제에 실패하셨습니다.")
-                }
-            })
+        deleteFit(uIdx).then((response) => {
+            if (response.result === "OK") {
+                alert("회원정보가 삭제되었습니다.");
+                onLogout();
+            } else {
+                alert("삭제에 실패하셨습니다.");
+            }
+        });
     }
 
     const onLogout = () => {
-        //sessionStorage.removeItem('state'); //새션 스토리지에서 state를 삭제함
-        sessionStorage.clear();//세션 스토리지를 모든 데이터를 삭제함
+        sessionStorage.clear(); // 세션 스토리지를 모든 데이터를 삭제함
         navigate('/');
         window.location.reload();
     }
@@ -132,7 +182,7 @@ function Mypage() {
                             fullWidth
                             label="이름"
                             name="name"
-                            value={fitDTO.name}
+                            value={fitDTO.name || ''}
                             InputLabelProps={{ shrink: true }}
                             InputProps={{ readOnly: true }}
                             variant="outlined"
@@ -143,12 +193,14 @@ function Mypage() {
                             fullWidth
                             label="생년월일(8자리)"
                             name="birthday"
-                            value={fitDTO.birthday}
+                            value={fitDTO.birthday || ''}
                             onChange={onBirthdayChange}
                             InputLabelProps={{
                                 shrink: Boolean(fitDTO.birthday),
                             }}
                             variant="outlined"
+                            error={Boolean(errors.birthday)}
+                            helperText={errors.birthday}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -156,12 +208,14 @@ function Mypage() {
                             fullWidth
                             label="핸드폰 번호"
                             name="tel"
-                            value={fitDTO.tel}
+                            value={fitDTO.tel || ''}
                             onChange={onTelChange}
                             InputLabelProps={{
                                 shrink: Boolean(fitDTO.tel),
                             }}
                             variant="outlined"
+                            error={Boolean(errors.tel)}
+                            helperText={errors.tel}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -169,13 +223,15 @@ function Mypage() {
                             fullWidth
                             label="비밀번호"
                             name="pw"
-                            value={fitDTO.pw}
+                            value={fitDTO.pw || ''}
                             onChange={onPwChange}
                             InputLabelProps={{
                                 shrink: Boolean(fitDTO.pw),
                             }}
                             type="password"
                             variant="outlined"
+                            error={Boolean(errors.pw)}
+                            helperText={errors.pw}
                         />
                     </Grid>
                 </Grid>

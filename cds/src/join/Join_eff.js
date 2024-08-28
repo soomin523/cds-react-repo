@@ -12,12 +12,26 @@ export const validateJoin = (data) => {
     }
 
     // 생년월일 유효성 검사
-    if (!data.birthday || data.birthday.length !== 8 || isNaN(data.birthday)) {
+    function isValidDate(dateStr) {
+        // 날짜 형식: yyyyMMdd
+        if (!/^\d{8}$/.test(dateStr)) return false;
+
+        const year = parseInt(dateStr.slice(0, 4), 10);
+        const month = parseInt(dateStr.slice(4, 6), 10);
+        const day = parseInt(dateStr.slice(6, 8), 10);
+
+        // Date 객체로 날짜 생성 시 월은 0부터 시작
+        const date = new Date(year, month - 1, day);
+        return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
+    }
+
+    // 데이터 검증 코드
+    if (!data.birthday || data.birthday.length !== 8 || isNaN(data.birthday) || !isValidDate(data.birthday)) {
         errors.birthday = "유효한 생년월일을 입력해 주세요.";
     }
 
     // 핸드폰 번호 유효성 검사
-    if (!data.tel || data.tel.length > 13 || isNaN(data.tel)) {
+    if (!data.tel || data.tel.length !== 11 || isNaN(data.tel)) {
         errors.tel = "유효한 핸드폰 번호를 입력해 주세요.";
     }
 
