@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, TextField, Typography, Grid, Card, CardContent, MenuItem, FormControl, InputLabel, Select } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { getFit, weightin } from '../join/ApiService';
+import '../Section/excSection.css'
 
 function ProfileForm({ onClose }) {
   const { uIdx } = useSelector((state) => state);
@@ -82,8 +83,14 @@ function ProfileForm({ onClose }) {
   };
 
   return (
-    <div>
-    <Card sx={{ backgroundColor: '#DAE4E8', borderRadius: '30px', height: '100vh' }}>
+    <div className='mybox'>
+    <Card sx={{ backgroundColor: '#f4f4f4',
+       borderRadius: '30px',
+        height: 'max-content',
+         width:'max-content',
+         border: '2px solid #B0BEC5', 
+         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' }}
+         >
       <CardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', 
         justifyContent: 'center', height: '100%' }}>
         <Typography variant="h6" style={{ marginBottom: '20px' }}>
