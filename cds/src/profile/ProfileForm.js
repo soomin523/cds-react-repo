@@ -82,8 +82,10 @@ function ProfileForm({ onClose }) {
   };
 
   return (
+    <div>
     <Card sx={{ backgroundColor: '#DAE4E8', borderRadius: '30px', height: '100vh' }}>
-      <CardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+      <CardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', 
+        justifyContent: 'center', height: '100%' }}>
         <Typography variant="h6" style={{ marginBottom: '20px' }}>
           정보 입력
         </Typography>
@@ -192,6 +194,7 @@ function ProfileForm({ onClose }) {
         </Grid>
       </CardContent>
     </Card>
+    </div>
   );
 }
 

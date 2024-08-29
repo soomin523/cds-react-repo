@@ -45,7 +45,15 @@ function JoinUse(props) {
         border: '1px solid #e0e0e0', 
         borderRadius: 2,
         boxShadow: 1,
-        bgcolor: 'background.paper'
+        bgcolor: 'background.paper',
+        padding: 3,
+        backgroundColor: '#f9fafb',
+        height: 'max-content',
+        width: 'max-content',
+        border: '2px solid #007aff', // 두께를 2px로, 색상을 #007aff로 설정
+        borderRadius: '8px', // 둥근 모서리 설정
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // 부드러운 그림자 추가
+        justifyContent: 'center',
       }}
     >
       <Typography variant="h5" sx={{ mb: 2, fontWeight: 'bold', textAlign: 'center' }}>

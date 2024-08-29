@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Grid, TextField, Typography, Button, Checkbox, FormControlLabel } from "@mui/material";
+import { Container, Grid, TextField, Typography, Button, Checkbox, FormControlLabel, Box } from "@mui/material";
 import { Link } from 'react-router-dom';
 import { call } from "../join/ApiService";
 import { useNavigate } from 'react-router-dom';
@@ -48,8 +48,23 @@ function Login() {
     }
 
     return (
+        <div className='mybox'>
+        <Box
+            sx={{
 
-        <div style={{ padding: '15px 0 200px', width: '100%', height: 'auto' }}>
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                padding: 3,
+                backgroundColor: '#f9fafb',
+                height: 'max-content',
+                width: 'max-content',
+                border: '2px solid #007aff', // 두께를 2px로, 색상을 #007aff로 설정
+                borderRadius: '8px', // 둥근 모서리 설정
+                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // 부드러운 그림자 추가
+                justifyContent: 'center',
+            }}
+        >
             <Container maxWidth="xs" style={{ marginTop: "15%", width: '400px', height: 'auto', paddingBottom: "20px", backgroundColor: '#white',
                 borderRadius:'10px' 
              }}>
@@ -125,8 +140,8 @@ function Login() {
                     </Grid>
                 </form>
             </Container>
+        </Box>
         </div>
-
     );
 };
 

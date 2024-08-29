@@ -16,7 +16,7 @@ import { deleteFit, getFit, update } from '../join/ApiService';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { validateJoin } from '../join/Join_eff';
-
+import '../Section/excSection.css'
 
 
 // 전화번호 유효성 검사 함수
@@ -128,14 +128,20 @@ function Mypage() {
     }
 
     return (
+        <div className='mybox'>
         <Box
             sx={{
+
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 padding: 3,
                 backgroundColor: '#f9fafb',
-                height: '100vh',
+                height: 'max-content',
+                width: 'max-content',
+                border: '2px solid #007aff', // 두께를 2px로, 색상을 #007aff로 설정
+                borderRadius: '8px', // 둥근 모서리 설정
+                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // 부드러운 그림자 추가
                 justifyContent: 'center',
             }}
         >
@@ -169,14 +175,23 @@ function Mypage() {
                 <Typography variant="h6" sx={{ mt: 2, fontWeight: 'bold', color: '#333' }}>
                     성함
                 </Typography>
-                <Typography color="text.secondary">{fitDTO.name}님</Typography>
+                <Typography sx={{
+                color: '#333', // 색상 변경
+                fontSize: '1.0rem', // 폰트 크기 설정
+                fontWeight: '800', // 폰트 굵기 설정
+                letterSpacing: '0.5px', // 문자 간격 설정
+                lineHeight: '1.5', // 줄 높이 설정
+                textAlign: 'center', // 텍스트 정렬
+                marginTop: 2, // 위쪽 여백
+                fontFamily: '"Nanum Gothic", sans-serif', // 폰트 패밀리 설정
+            }}>{fitDTO.name}님</Typography>
             </Box>
 
             <Divider sx={{ width: '100%', mb: 3 }} />
 
             {/* 회원정보 변경 폼 */}
-            <form onSubmit={handleSubmit}>
-                <Grid container spacing={2} sx={{ width: '100%', maxWidth: 360 }}>
+            <form onSubmit={handleSubmit} >
+                <Grid container spacing={2} sx={{ width: '100%', maxWidth: 360 }} >
                     <Grid item xs={12}>
                         <TextField
                             fullWidth
@@ -266,7 +281,6 @@ function Mypage() {
                 sx={{
                     width: '100%',
                     maxWidth: 360,
-                    position: 'fixed',
                     bottom: 0,
                     borderTop: '1px solid #e0e0e0',
                     backgroundColor: '#ffffff',
@@ -275,6 +289,7 @@ function Mypage() {
                 <BottomNavigationAction label="Home" icon={<Home />} />
             </BottomNavigation>
         </Box>
+        </div>
     );
 }
 

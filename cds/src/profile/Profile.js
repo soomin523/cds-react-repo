@@ -76,24 +76,31 @@ function Profile({ onEdit }) {
               backgroundImage:`url(${back1})`,backgroundSize: 'cover', 
               display:'flex', justifyContent:'center', alignItems:'center'}}>
       <Button
-      onClick={loginevent}
-      variant="contained"
-      sx={{
-        backgroundColor: '#00BFFF', // 하늘색 배경
-        color: '#FFFFFF', // 흰색 텍스트
-        '&:hover': {
-          backgroundColor: '#1E90FF', // 버튼 호버 시 더 진한 색상
-        },
-        padding: '12px 24px',
-        fontSize: '16px',
-        fontWeight: 'bold', // 글씨 두껍게 설정
-        borderRadius: '8px',
-        textTransform: 'none',
-        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // 미세한 그림자 추가
-      }}
-    >
-      로그인 후 이용 가능한 페이지입니다.
-    </Button>
+  onClick={loginevent}
+  variant="contained"
+  sx={{
+    backgroundColor: '#007BFF', // 진한 파란색 배경
+    color: '#FFFFFF', // 흰색 텍스트
+    '&:hover': {
+      backgroundColor: '#0056b3', // 호버 시 더 진한 색상
+    },
+    padding: '16px 32px', // 버튼 내부 여백 확대
+    fontSize: '20px', // 텍스트 크기 확대
+    fontWeight: 'bold', // 글씨 두껍게
+    borderRadius: '8px', // 모서리 둥글게
+    textTransform: 'none', // 텍스트 대문자화 방지
+    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', // 두드러진 그림자
+    transition: 'background-color 0.3s ease, box-shadow 0.3s ease', // 부드러운 전환 효과
+    '&:active': {
+      backgroundColor: '#004080', // 클릭 시 더 진한 색상
+      boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.3)', // 클릭 시 그림자
+    },
+    fontFamily: 'Roboto, Arial, sans-serif', // 폰트 패밀리 설정 (선택적)
+    letterSpacing: '0.5px', // 글자 간격 설정 (선택적)
+  }}
+>
+  로그인 후 건강관리 입력이 가능합니다.
+</Button>
     </Card>
   }
 
