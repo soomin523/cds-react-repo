@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
-import Middle1 from './메인.png'; // 이미지 파일을 가져옵니다
+import Middle1 from './메인.webp'; // 이미지 파일을 가져옵니다
 
 const messages = [
   '나 혼자는 힘들던 건강관리,',
@@ -40,7 +40,7 @@ const HeaderImage = () => {
       <Box
         sx={{
           position: 'absolute',
-          top: '50%', // 수직 중앙 정렬
+          top: '45%', // 수직 중앙 정렬
           left: '50%', // 수평 중앙 정렬
           transform: 'translate(-50%, -50%)', // 중앙으로 정확히 맞춤
           color: 'white',
@@ -59,7 +59,10 @@ const HeaderImage = () => {
             mb: 2, // 문구 아래쪽 마진 추가
             border: 'none', // 텍스트에 테두리 없음
             display: 'block', // 텍스트 블록 스타일 설정
-            color : 'white'
+            backgroundColor: 'rgba(255, 255, 255, 0.5)', // 반투명한  배경 추가
+            borderRadius: '50px', // 모서리를 둥글게 설정 (선택사항)
+            padding: '5px 20px',
+            color : '#1D2A64',
           }}
         >
           지금 이 순간에 필요한
@@ -93,13 +96,16 @@ const HeaderImage = () => {
                 sx={{
                   fontSize: '1.25rem', // 작은 문구의 크기 조정
                   fontWeight: 800,
-                  color: '#66ff66',
+                  color: '#1D2A64',
                   textAlign: 'center',
                   lineHeight: '1.5', // 위아래 간격 조정
+                  width: '400px',
                   height: '60px', // 각 문구의 높이 설정
                   display: 'flex', // 텍스트 중앙 정렬
                   alignItems: 'center',
                   justifyContent: 'center',
+                  backgroundColor: 'rgba(255, 255, 255, 0.5)', // 반투명한  배경 추가
+                  borderRadius: '50px', // 모서리를 둥글게 설정 (선택사항)
                 }}
               >
                 {message}
